@@ -18,7 +18,6 @@ const App = () => {
 		try{
 			axios.get('http://node-postgres-crud-api-nirmesh-node-react.apps.ocp4.ds.blr.lab/users')
 		.then((response) => {
-			console.log("i m success");
 			setUsers(response.data);
 		});
 	}catch(e){
@@ -30,18 +29,31 @@ const App = () => {
 	const addUser = user => {
 		user.id = users.length + 1
 		setUsers([ ...users, user ])
+		console.log("user**",user);
+		axios.post('http://node-postgres-crud-api-nirmesh-openshift-crud.apps.ocp4.ds.blr.lab/users',user)
+		.then((resp)=>{
+			console.log(`user added:: ${resp.data}`);
+		})
 	}
 
 	const deleteUser = id => {
 		setEditing(false)
 
 		setUsers(users.filter(user => user.id !== id))
+		axios.delete(`http://node-postgres-crud-api-nirmesh-openshift-crud.apps.ocp4.ds.blr.lab/users/${id}`)
+		.then((resp)=>{
+			console.log(`user deleted:: ${resp.data}`);
+		})
 	}
 
 	const updateUser = (id, updatedUser) => {
 		setEditing(false)
 
 		setUsers(users.map(user => (user.id === id ? updatedUser : user)))
+		axios.put(`http://node-postgres-crud-api-nirmesh-openshift-crud.apps.ocp4.ds.blr.lab/users/${id}`,updatedUser)
+		.then((resp)=>{
+			console.log(`user updated:: ${resp.data}`);
+		})
 	}
 
 	const editRow = user => {
