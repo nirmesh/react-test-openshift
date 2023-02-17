@@ -30,7 +30,7 @@ const App = () => {
 		user.id = users.length + 1
 		setUsers([ ...users, user ])
 		console.log("user**",user);
-		axios.post('http://node-postgres-crud-api-nirmesh-openshift-crud.apps.ocp4.ds.blr.lab/users',user)
+		axios.post('http://node-postgres-crud-api-nirmesh-node-react.apps.ocp4.ds.blr.lab/users',user)
 		.then((resp)=>{
 			console.log(`user added:: ${resp.data}`);
 		})
@@ -40,7 +40,7 @@ const App = () => {
 		setEditing(false)
 
 		setUsers(users.filter(user => user.id !== id))
-		axios.delete(`http://node-postgres-crud-api-nirmesh-openshift-crud.apps.ocp4.ds.blr.lab/users/${id}`)
+		axios.delete(`http://node-postgres-crud-api-nirmesh-node-react.apps.ocp4.ds.blr.lab/users/${id}`)
 		.then((resp)=>{
 			console.log(`user deleted:: ${resp.data}`);
 		})
@@ -50,7 +50,7 @@ const App = () => {
 		setEditing(false)
 
 		setUsers(users.map(user => (user.id === id ? updatedUser : user)))
-		axios.put(`http://node-postgres-crud-api-nirmesh-openshift-crud.apps.ocp4.ds.blr.lab/users/${id}`,updatedUser)
+		axios.put(`http://node-postgres-crud-api-nirmesh-node-react.apps.ocp4.ds.blr.lab/users/${id}`,updatedUser)
 		.then((resp)=>{
 			console.log(`user updated:: ${resp.data}`);
 		})
